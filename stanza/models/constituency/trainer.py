@@ -81,7 +81,7 @@ class Trainer:
         params = checkpoint.get('params', checkpoint)
 
         if model_type == 'LSTM':
-            model = LSTMModel(pretrain=pt,
+            model = LSTMModel(pt=pt,
                               forward_charlm=forward_charlm,
                               backward_charlm=backward_charlm,
                               transitions=params['transitions'],

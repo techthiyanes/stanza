@@ -24,6 +24,20 @@ class TransitionScheme(Enum):
 
 UNARY_LIMIT = 4
 
+# a few node types specfic to the model(s) which use LSTMs.
+# maybe these belong elsewhere?
+WordNode = namedtuple("WordNode", ['value', 'hx'])
+TransitionNode = namedtuple("TransitionNode", ['value', 'output', 'hx', 'cx'])
+
+# Invariant: the output at the top of the constituency stack will have a
+# single dimension
+# We do this to maintain consistency between the different operations,
+# which sometimes result in different shapes
+# This will be unsqueezed in order to put into the next layer if needed
+# hx & cx are the hidden & cell states of the LSTM going across constituents
+ConstituentNode = namedtuple("ConstituentNode", ['value', 'output', 'hx', 'cx'])
+Constituent = namedtuple("Constituent", ['value', 'hx'])
+
 class State(namedtuple('State', ['word_queue', 'transitions', 'constituents', 'gold_tree', 'gold_sequence',
                                  'sentence_length', 'num_opens', 'word_position'])):
     """
