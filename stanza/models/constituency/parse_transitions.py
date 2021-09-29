@@ -154,6 +154,7 @@ def initial_state_from_words(word_lists, model):
 
 def initial_state_from_gold_trees(trees, model):
     # reversed so we put the words on the stack backwards
+    # TODO: stop reversing the lists?
     preterminal_lists = [[Tree(label=pt.label, children=Tree(label=pt.children[0].label))
                           for pt in tree.yield_reversed_preterminals()]
                          for tree in trees]
